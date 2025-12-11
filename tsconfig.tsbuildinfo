@@ -1,0 +1,14 @@
+{
+  "root": [
+    "./src/app.tsx",
+    "./src/main.tsx",
+    "./src/setuptests.ts",
+    "./src/vite-env.d.ts",
+    "./src/components/home/header.tsx",
+    "./src/components/home/sidedrawer.tsx",
+    "./src/pages/home/home.tsx",
+    "./src/routes/approutes.tsx",
+    "./src/tests/app.test.tsx"
+  ],
+  "version": "5.8.3"
+}
