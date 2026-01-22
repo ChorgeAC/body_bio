@@ -1,11 +1,14 @@
 import React from 'react';
 import AppRoutes from './routes/AppRoutes';
 import './index.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
   return (
     <div>
       <AppRoutes />
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
