@@ -13,7 +13,7 @@ const UploadReportDrawer = () => {
       return;
     }
     toast.success("Extraction started — we'll notify once completed.");
-    navigate(`/${parts[0]}/dashboard`);
+    navigate('/admin-portal');
   };
 
   return (

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Patient } from '../pages/UserPortal';
+import UploadReportDrawer from './UploadReportDrawer';
 
 export interface Visit {
   id: number;
@@ -12,11 +13,11 @@ export interface Visit {
 
 interface CreateVisitFormProps {
   patient: Patient;
-  onClose: (visitId?: number) => void;
-  onSuccess: (visit: Visit) => void;
+  onClose: () => void;
 }
 
-const CreateVisitForm: React.FC<CreateVisitFormProps> = ({ patient, onClose, onSuccess }) => {
+const CreateVisitForm: React.FC<CreateVisitFormProps> = ({ patient, onClose }) => {
+  const [isDrawerShown, setIsDrawerShown] = useState(false);
   const [form, setForm] = useState({
     visitRequest: '',
     visitAccession: '',
@@ -44,12 +45,14 @@ const CreateVisitForm: React.FC<CreateVisitFormProps> = ({ patient, onClose, onS
     };
 
     console.log('Visit Created:', newVisit);
-
-    onSuccess && onSuccess(newVisit);
-    onClose(newVisitId);
+    setIsDrawerShown(true);
+    // onSuccess && onSuccess(newVisit);
+    // onClose(newVisitId);
   };
 
-  return (
+  return isDrawerShown ? (
+    <UploadReportDrawer />
+  ) : (
     <div className="h-full flex flex-col">
       {/* HEADER */}
       <div className="border-b pb-4 mb-6">
@@ -113,7 +116,7 @@ const CreateVisitForm: React.FC<CreateVisitFormProps> = ({ patient, onClose, onS
       {/* ACTIONS */}
       <div className="pt-6 border-t flex justify-end gap-3">
         <button
-          onClick={() => onClose}
+          onClick={() => onClose()}
           className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-pointer"
         >
           Cancel

@@ -1,10 +1,27 @@
 import CommonTable from '@/components/CommonTable';
 import { patientsList } from '../../tests/mockData/SampleDataRecords.json';
-import { editableUserInfo } from '../UserPortal';
+import { editableUserInfo, Patient } from '../UserPortal';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import CreateVisitForm from '@/components/CreateVisitForm';
 
 const GetDoctorDetails = () => {
   const navigate = useNavigate();
+  const [showCreateVisitDrawer, setShowCreateVisitDrawer] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState<Patient>({
+    id: 1,
+    name: '',
+    status: 'active',
+  });
+  const openCreateVisitDrawer = (userInfo: editableUserInfo) => {
+    setShowCreateVisitDrawer(true);
+    setSelectedPatient(userInfo);
+  };
+
+  const closeCreateVisitDrawer = () => {
+    console.log('foo');
+    setShowCreateVisitDrawer(false);
+  };
   const handleEditUser = (userInfo: editableUserInfo, role: string) =>
     navigate(`/admin-portal/edit-user/${role}`);
 
@@ -33,7 +50,7 @@ const GetDoctorDetails = () => {
             ]}
             data={patientsList}
             onEdit={(userInfo) => handleEditUser(userInfo, 'patient')}
-            // onCreateVisit={() => openCreateVisitDrawer()}
+            onCreateVisit={(userInfo) => openCreateVisitDrawer(userInfo)}
             // onSelect={(userInfo) =>
             //   navigate(
             //     `/admin-portal/doctors/${selectedDoctor?.id}/patient/${userInfo.id}/visit-info`
@@ -42,6 +59,14 @@ const GetDoctorDetails = () => {
           />
         </div>
       </div>
+      {showCreateVisitDrawer && (
+        <div className="fixed inset-0 z-50 flex">
+          <div className="flex-1 bg-black/30" onClick={() => closeCreateVisitDrawer()} />
+          <div className="w-[420px] bg-white h-full shadow-xl p-6 overflow-y-auto">
+            <CreateVisitForm patient={selectedPatient} onClose={() => closeCreateVisitDrawer()} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

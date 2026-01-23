@@ -413,7 +413,7 @@ const UserPortal = () => {
             <CreateVisitForm
               patient={selectedPatient}
               onClose={closeCreateVisitDrawer}
-              onSuccess={() => navigate('/user-portal/upload')}
+              // onSuccess={() => navigate('/user-portal/upload')}
             />
           </div>
         </div>
