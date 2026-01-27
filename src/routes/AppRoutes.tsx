@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from '../pages/LoginPage';
 import AdminPortal from '../pages/admin/AdminPortal';
@@ -15,6 +15,9 @@ import CreateBioUser from '@/pages/bioUser/CreateBioUser';
 import CreateNewTemplate from '@/components/CreateNewTemplate';
 import { PendingReportsTable } from '@/components/PendingReportsTable';
 import GetDoctorDetails from '@/pages/doctor/GetDoctorDetails';
+import CreateDoctor from '@/pages/doctor/CreateDoctor';
+import CreateAdmin from '@/pages/admin/CreateAdmin';
+import CreatePatient from '@/pages/patient/CreatePatient';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -38,11 +41,14 @@ const AppRoutes: React.FC = () => {
         <Route path="users" element={<BioUser />} />
         <Route path="doctors" element={<Doctor />} />
         <Route path="doctors/:id" element={<GetDoctorDetails />} />
-        <Route path="create-user" element={<CreateBioUser />} />
         <Route path="create-new-template" element={<CreateNewTemplate />} />
         <Route path="pending-reports" element={<PendingReportsTable />} />
         <Route path="pending-reports/preview/:visitId" element={<ReportPreview />} />
-        {/* doctors/${userInfo.id} */}
+         {/* Create New User Routes */}
+        <Route path="create-user" element={<CreateBioUser />} />
+        <Route path="create-doctor" element={<CreateDoctor />} />
+        <Route path="create-admin" element={<CreateAdmin />} />
+        <Route path="create-patient" element={<CreatePatient />} />
       </Route>
 
       {/* DOCTOR */}
