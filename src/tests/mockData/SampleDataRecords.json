@@ -648,41 +648,41 @@
  "reports": [
     {
       "id": "RPT001",
-      "name": "Blood Test",
-      "patientName": "John Doe",
-      "doctorName": "Dr. Smith",
+      "reportName": "Blood Test",
+      "patient": "John Doe",
+      "doctor": "Dr. Smith",
       "status": "completed",
       "createdAt": "01/10/2026"
     },
     {
       "id": "RPT002",
-      "name": "X-Ray Chest",
-      "patientName": "Alice Johnson",
-      "doctorName": "Dr. Patel",
+      "reportName": "X-Ray Chest",
+      "patient": "Alice Johnson",
+      "doctor": "Dr. Patel",
       "status": "in-progress",
       "createdAt": "01/12/2026"
     },
     {
       "id": "RPT003",
-      "name": "MRI Brain",
-      "patientName": "Michael Brown",
-      "doctorName": "Dr. Sharma",
+      "reportName": "MRI Brain",
+      "patient": "Michael Brown",
+      "doctor": "Dr. Sharma",
       "status": "in-progress",
       "createdAt": "01/13/2026"
     },
     {
       "id": "RPT004",
-      "name": "ECG",
-      "patientName": "Emma Wilson",
-      "doctorName": "Dr. Verma",
+      "reportName": "ECG",
+      "patient": "Emma Wilson",
+      "doctor": "Dr. Verma",
       "status": "completed",
       "createdAt": "01/11/2026"
     },
     {
       "id": "RPT005",
-      "name": "Urine Test",
-      "patientName": "David Lee",
-      "doctorName": "Dr. Gupta",
+      "reportName": "Urine Test",
+      "patient": "David Lee",
+      "doctor": "Dr. Gupta",
       "status": "in-progress",
       "createdAt": "01/14/2026"
     }

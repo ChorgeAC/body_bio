@@ -18,7 +18,7 @@ const BioUser = () => {
         ]}
         data={bioUsersList}
         onEdit={(userInfo) => handleEditUser(userInfo, 'bio-users')}
-        onDelete={(row) => alert(`Delete ${row.name}`)}
+        // onDelete={(row) => alert(`Delete ${row.name}`)}
       />
     </div>
   );

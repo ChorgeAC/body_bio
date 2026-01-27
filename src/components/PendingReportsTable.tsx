@@ -1,13 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 import { reports } from '../tests/mockData/SampleDataRecords.json';
+import { useEffect, useState } from 'react';
+import { ReportService } from '@/services';
+import { Report } from '@/services/report.service';
 
 const visitId = 1385986;
 
 export const PendingReportsTable = () => {
   const navigate = useNavigate();
+  const [reportList, setReportList] = useState<Report[]>(reports);
+
+  useEffect(() => {
+    const fetchReportList = async () => {
+      try {
+        const data = await ReportService.getPatientList({});
+        setReportList(data);
+      } catch (error) {}
+    };
+    fetchReportList();
+  }, []);
 
   const renderStatus = (status: string) => {
-    switch (status) {
+    switch (status.toLocaleLowerCase()) {
       case 'completed':
         return (
           <button
@@ -35,7 +49,7 @@ export const PendingReportsTable = () => {
         );
 
       default:
-        return <span className="text-gray-400 font-medium cursor-default">{status}</span>;
+        return <span className="text-gray-400 font-medium cursor-default">In Progress</span>;
     }
   };
 
@@ -71,7 +85,7 @@ export const PendingReportsTable = () => {
 
       {/* Table Header */}
       <div className="grid grid-cols-6 gap-4 px-6 py-3 bg-gray-50 text-gray-500 font-semibold text-xs uppercase tracking-wide">
-        <div>Report ID</div>
+        <div>Sr No</div>
         <div>Report Name</div>
         <div>Patient</div>
         <div>Doctor</div>
@@ -81,19 +95,19 @@ export const PendingReportsTable = () => {
 
       {/* Table Rows */}
       <div>
-        {reports.map((report) => (
+        {reportList.map((report, index) => (
           <div
-            key={report.id}
+            key={report.reportId}
             className="
               grid grid-cols-6 gap-4 px-6 py-4 items-center
               hover:bg-gray-50 transition
               border-b border-gray-50
             "
           >
-            <div className="text-gray-700 font-medium text-sm">{report.id}</div>
-            <div className="text-gray-700 text-sm">{report.name}</div>
-            <div className="text-gray-700 text-sm">{report.patientName}</div>
-            <div className="text-gray-700 text-sm">{report.doctorName}</div>
+            <div className="text-gray-700 font-medium text-sm">{index + 1}</div>
+            <div className="text-gray-700 text-sm">{report.reportName}</div>
+            <div className="text-gray-700 text-sm">{report.patient}</div>
+            <div className="text-gray-700 text-sm">{report.doctor}</div>
             <div>{renderStatus(report.status)}</div>
             <div className="text-gray-500 text-sm">{report.createdAt}</div>
           </div>

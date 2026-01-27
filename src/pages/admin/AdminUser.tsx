@@ -18,7 +18,7 @@ const AdminUser = () => {
         ]}
         data={adminsList}
         onEdit={(userInfo) => handleEditUser(userInfo, 'admin-users')}
-        onDelete={(userInfo) => alert(`Delete ${userInfo.name}`)}
+        // onDelete={(userInfo) => alert(`Delete ${userInfo.name}`)}
       />
     </div>
   );

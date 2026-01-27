@@ -19,7 +19,7 @@ const AppLayout = () => {
       </div>
 
       {/* FOOTER */}
-      <footer className="h-14 bg-white shadow-sm flex items-center justify-center text-xs text-gray-500">
+      <footer className="h-8 bg-white shadow-sm flex items-center justify-center text-xs text-gray-500">
         © 2025 Body Bio · All rights reserved
       </footer>
     </div>

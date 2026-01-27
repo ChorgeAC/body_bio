@@ -6,7 +6,7 @@ export interface GetPatientListRequest {
 }
 
 export interface Patient {
-  id?: number;
+  id: number;
   name: string;
   email: string;
   lastVisit: string;
@@ -15,10 +15,7 @@ export interface Patient {
 
 export const PatientService = {
   async getPatientList(payload: GetPatientListRequest) {
-    const res = await axiosInstance.post<Patient[]>(
-      '/api/Patient/getPatientList',
-      payload
-    );
+    const res = await axiosInstance.post<Patient[]>('/api/Patient/getPatientList', payload);
     return res.data;
   },
 };

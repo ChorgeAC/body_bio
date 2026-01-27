@@ -49,7 +49,7 @@ const AppRoutes: React.FC = () => {
       <Route
         path="/doctor-portal"
         element={
-          <ProtectedRoute allowedRoles={['Doctor']}>
+          <ProtectedRoute allowedRoles={['Doctor', 'Admin']}>
             <AppLayout />
           </ProtectedRoute>
         }
@@ -63,7 +63,7 @@ const AppRoutes: React.FC = () => {
       <Route
         path="/user-portal"
         element={
-          <ProtectedRoute allowedRoles={['User']}>
+          <ProtectedRoute allowedRoles={['User', 'Admin']}>
             <AppLayout />
           </ProtectedRoute>
         }

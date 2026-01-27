@@ -2,11 +2,13 @@ import CommonTable from '@/components/CommonTable';
 import { patientsList } from '../../tests/mockData/SampleDataRecords.json';
 import { editableUserInfo, Patient } from '../UserPortal';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CreateVisitForm from '@/components/CreateVisitForm';
+import { PatientService } from '@/services';
 
 const GetDoctorDetails = () => {
   const navigate = useNavigate();
+  const [patientListData, setPatientListData] = useState<Patient[]>(patientsList);
   const [showCreateVisitDrawer, setShowCreateVisitDrawer] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<Patient>({
     id: 1,
@@ -24,6 +26,16 @@ const GetDoctorDetails = () => {
   };
   const handleEditUser = (userInfo: editableUserInfo, role: string) =>
     navigate(`/admin-portal/edit-user/${role}`);
+
+  useEffect(() => {
+    const fetchPatientList = async () => {
+      try {
+        const data = await PatientService.getPatientList({ patientId: 0 });
+        setPatientListData(data);
+      } catch (error) {}
+    };
+    fetchPatientList();
+  }, []);
 
   return (
     <div>
@@ -48,7 +60,7 @@ const GetDoctorDetails = () => {
               { key: 'lastVisit', label: 'Last Visit' },
               { key: 'status', label: 'Status' },
             ]}
-            data={patientsList}
+            data={patientListData}
             onEdit={(userInfo) => handleEditUser(userInfo, 'patient')}
             onCreateVisit={(userInfo) => openCreateVisitDrawer(userInfo)}
             // onSelect={(userInfo) =>
