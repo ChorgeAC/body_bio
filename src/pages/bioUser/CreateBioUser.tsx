@@ -1,17 +1,16 @@
+import type { editableBioUserInfo } from '@/types/CreateUserForm';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { editableUserInfo } from '@/pages/UserPortal';
 import { toast } from 'react-toastify';
 
 interface CreateUserFormProps {
   role?: string;
-  editableUserInfo?: editableUserInfo;
+  editableBioUserInfo?: editableBioUserInfo;
 }
 
 interface FormData {
   name: string;
   email: string;
-  phone: string;
   specialization: string;
   practiceName: string;
   age: string;
@@ -25,30 +24,14 @@ interface FormData {
   postalCode: string;
   country: string;
   phoneNumber: string;
-  memo: string;
-  creditCard: string;
-  expDate: string;
-  CVV: string;
-  terms: string;
-  priceCode: string;
-  initial: string;
-  ICD9_ID: string;
-  ICD9_SubID: string;
-  dateFirst: string;
-  birthDate: Date | null; // ✅ FIX HERE
-  sex: string;
-  bloodType: string;
-  information: string;
-  YearDx: string;
 }
 
-const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableUserInfo }) => {
+const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableBioUserInfo }) => {
   const locationParts = location.pathname.split('/').filter(Boolean);
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    phone: '',
     specialization: '',
     practiceName: '',
     age: '',
@@ -62,37 +45,22 @@ const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableUserInfo }
     postalCode: '',
     country: '',
     phoneNumber: '',
-
-    memo: '',
-    creditCard: '',
-    expDate: '',
-    CVV: '',
-    terms: '',
-    priceCode: '',
-    initial: '',
-    ICD9_ID: '',
-    ICD9_SubID: '',
-    dateFirst: '',
-    birthDate: null,
-    sex: '',
-    bloodType: '',
-    information: '',
-    YearDx: '',
   });
 
-  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleOnBackClick = () => navigate(-1);
+  const handleOnBackClick = () => {
+    navigate(-1);
+  };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     handleOnBackClick();
-    toast.success(`User ${editableUserInfo ? 'updated' : 'created'} successfully.`);
+    toast.success(`User ${editableBioUserInfo ? 'updated' : 'created'} successfully.`);
   };
 
   return (
@@ -121,12 +89,6 @@ const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableUserInfo }
         </h2>
       </div>
 
-      {success && (
-        <div className="mb-6 p-3 bg-green-50 text-green-700 rounded-lg text-sm">
-          User {locationParts[1] === 'create-user' ? 'created' : 'updated'} successfully.
-        </div>
-      )}
-
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Name */}
@@ -137,7 +99,7 @@ const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableUserInfo }
               type="text"
               required
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={locationParts[1] === 'edit-user' ? editableUserInfo?.name : formData.name}
+              value={locationParts[1] === 'edit-user' ? editableBioUserInfo?.name : formData.name}
               onChange={(e) => {
                 let value = e.target.value;
 
@@ -164,7 +126,7 @@ const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableUserInfo }
               type="email"
               required
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={locationParts[1] === 'edit-user' ? editableUserInfo?.email : formData.email}
+              value={locationParts[1] === 'edit-user' ? editableBioUserInfo?.email : formData.email}
               onChange={handleChange}
             />
           </div>
@@ -197,7 +159,7 @@ const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableUserInfo }
               name="city"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={locationParts[1] === 'edit-user' ? editableUserInfo?.city : formData.city}
+              value={locationParts[1] === 'edit-user' ? editableBioUserInfo?.city : formData.city}
               onChange={handleChange}
             />
           </div>
@@ -208,7 +170,7 @@ const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableUserInfo }
               name="state"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={locationParts[1] === 'edit-user' ? editableUserInfo?.state : formData.state}
+              value={locationParts[1] === 'edit-user' ? editableBioUserInfo?.state : formData.state}
               onChange={handleChange}
             />
           </div>
@@ -220,7 +182,7 @@ const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableUserInfo }
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={
-                locationParts[1] === 'edit-user' ? editableUserInfo?.pincode : formData.postalCode
+                locationParts[1] === 'edit-user' ? editableBioUserInfo?.postalCode : formData.postalCode
               }
               onChange={handleChange}
             />
@@ -260,6 +222,7 @@ const CreateBioUser: React.FC<CreateUserFormProps> = ({ role, editableUserInfo }
           <button
             type="button"
             className="cursor-pointer bg-gray-100 text-gray-700 py-3 px-6 rounded-md text-sm hover:bg-gray-200 transition"
+             onClick={handleOnBackClick}
           >
             Back
           </button>

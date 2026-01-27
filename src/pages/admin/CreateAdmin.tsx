@@ -1,11 +1,11 @@
+import type { editableAdminUserInfo } from '@/types/CreateUserForm';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { editableUserInfo } from '@/pages/UserPortal';
 import { toast } from 'react-toastify';
 
 interface CreateAdminFormProps {
   role?: string;
-  editableUserInfo?: editableUserInfo;
+  editableAdminUserInfo?: editableAdminUserInfo;
 }
 
 interface FormData {
@@ -14,24 +14,24 @@ interface FormData {
   address2: string;
   city: string;
   state: string;
-  postCode: string;
+  postCode: number;
   country: string;
-  phone: string;
-  fax: string;
+  phone: number;
+  fax: number;
   email: string;
 }
 
-const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo }) => {
+const CreateAdmin: React.FC<CreateAdminFormProps> = ({ editableAdminUserInfo }) => {
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     address1: '',
     address2: '',
     city: '',
     state: '',
-    postCode: '',
+    postCode: 0,
     country: '',
-    phone: '',
-    fax: '',
+    phone: 0,
+    fax: 0,
     email: '',
   });
 
@@ -44,7 +44,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleOnBackClick();
-    toast.success(`User ${editableUserInfo ? 'updated' : 'created'} successfully.`);
+    toast.success(`User ${editableAdminUserInfo ? 'updated' : 'created'} successfully.`);
   };
 
   const handleOnBackClick = () => navigate(-1);
@@ -70,7 +70,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
         </button>
 
         <h2 className="text-2xl font-semibold text-blue-600">
-          {editableUserInfo ? 'Edit' : 'Create'} Admin
+          {editableAdminUserInfo ? 'Edit' : 'Create'} Admin
         </h2>
       </div>
 
@@ -84,7 +84,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               type="text"
               required
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.fullName ?? formData.fullName}
+              value={editableAdminUserInfo?.fullName ?? formData.fullName}
               onChange={handleChange}
             />
           </div>
@@ -96,7 +96,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               name="address1"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.address1 ?? formData.address1}
+              value={editableAdminUserInfo?.address1 ?? formData.address1}
               onChange={handleChange}
               required
             />
@@ -109,7 +109,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               name="address2"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.address2 ?? formData.address2}
+              value={editableAdminUserInfo?.address2 ?? formData.address2}
               onChange={handleChange}
               required
             />
@@ -122,7 +122,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               name="city"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.city ?? formData.city}
+              value={editableAdminUserInfo?.city ?? formData.city}
               onChange={handleChange}
               required
             />
@@ -135,7 +135,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               name="state"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.state ?? formData.state}
+              value={editableAdminUserInfo?.state ?? formData.state}
               onChange={handleChange}
               required
             />
@@ -148,7 +148,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               name="postCode"
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.postCode ?? formData.postCode}
+              value={editableAdminUserInfo?.postCode ?? formData.postCode}
               onChange={handleChange}
               required
             />
@@ -161,7 +161,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               name="country"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.country ?? formData.country}
+              value={editableAdminUserInfo?.country ?? formData.country}
               onChange={handleChange}
               required
             />
@@ -174,7 +174,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               name="phone"
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.phone ?? formData.phone}
+              value={editableAdminUserInfo?.phone ?? formData.phone}
               onChange={handleChange}
               required
             />
@@ -187,7 +187,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               name="fax"
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.fax ?? formData.fax}
+              value={editableAdminUserInfo?.fax ?? formData.fax}
               onChange={handleChange}
               required
             />
@@ -201,7 +201,7 @@ const CreateAdmin: React.FC<CreateAdminFormProps> = ({ role, editableUserInfo })
               type="email"
               required
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.email ?? formData.email}
+              value={editableAdminUserInfo?.email ?? formData.email}
               onChange={handleChange}
             />
           </div>

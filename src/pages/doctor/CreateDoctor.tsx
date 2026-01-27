@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { editableUserInfo } from '@/pages/UserPortal';
 import DatePicker from 'react-datepicker';
 import { toast } from 'react-toastify';
+import type { editableDoctorUserInfo } from '@/types/CreateUserForm';
 
 interface CreateDoctorFormProps {
   role?: string;
-  editableUserInfo?: editableUserInfo;
+  editableDoctorUserInfo?: editableDoctorUserInfo;
 }
 
 interface FormData {
-  clientAcct: number | string;
+  clientAcct: number;
   creditHold: string;
   eLyte: string;
   dateFirstEntered: string;
@@ -22,22 +22,22 @@ interface FormData {
   address2: string;
   city: string;
   state: string;
-  postCode: string;
+  postCode: number;
   country: string;
-  phone: string;
-  fax: string;
+  phone: number;
+  fax: number;
   email: string;
   memo: string;
   creditCard: string;
-  expDate: string;
-  cvv: string;
+  expDate: Date | string;
+  cvv: number;
   terms: string;
   priceCode: string;
 }
 
-const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo }) => {
+const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableDoctorUserInfo }) => {
   const [formData, setFormData] = useState<FormData>({
-    clientAcct: '',
+    clientAcct: 0,
     creditHold: '',
     eLyte: '',
     dateFirstEntered: '',
@@ -49,15 +49,15 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
     address2: '',
     city: '',
     state: '',
-    postCode: '',
+    postCode: 0,
     country: '',
-    phone: '',
-    fax: '',
+    phone: 0,
+    fax: 0,
     email: '',
     memo: '',
     creditCard: '',
     expDate: '',
-    cvv: '',
+    cvv: 0,
     terms: '',
     priceCode: '',
   });
@@ -71,7 +71,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleOnBackClick();
-    toast.success(`User ${editableUserInfo ? 'updated' : 'created'} successfully.`);
+    toast.success(`User ${editableDoctorUserInfo ? 'updated' : 'created'} successfully.`);
   };
 
   const handleOnBackClick = () => navigate(-1);
@@ -97,7 +97,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
         </button>
 
         <h2 className="text-2xl font-semibold text-blue-600">
-          {editableUserInfo ? 'Edit' : 'Create'} Physician
+          {editableDoctorUserInfo ? 'Edit' : 'Create'} Physician
         </h2>
       </div>
 
@@ -110,7 +110,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="clientAcct"
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.clientAcct ?? formData.clientAcct}
+              value={editableDoctorUserInfo?.clientAcct ?? formData.clientAcct}
               onChange={handleChange}
               required
             />
@@ -123,7 +123,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="creditHold"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.creditHold ?? formData.creditHold}
+              value={editableDoctorUserInfo?.creditHold ?? formData.creditHold}
               onChange={handleChange}
               required
             />
@@ -136,7 +136,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="eLyte"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.eLyte ?? formData.eLyte}
+              value={editableDoctorUserInfo?.eLyte ?? formData.eLyte}
               onChange={handleChange}
               required
             />
@@ -149,7 +149,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="dateFirstEntered"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.dateFirstEntered ?? formData.dateFirstEntered}
+              value={editableDoctorUserInfo?.dateFirstEntered ?? formData.dateFirstEntered}
               onChange={handleChange}
               required
             />
@@ -163,7 +163,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               type="text"
               required
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.lastName ?? formData.lastName}
+              value={editableDoctorUserInfo?.lastName ?? formData.lastName}
               onChange={(e) => {
                 let value = e.target.value;
                 if (role === 'doctor') {
@@ -187,7 +187,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="practitioner"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.practitioner ?? formData.practitioner}
+              value={editableDoctorUserInfo?.practitioner ?? formData.practitioner}
               onChange={handleChange}
               required
             />
@@ -200,7 +200,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="type"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.type ?? formData.type}
+              value={editableDoctorUserInfo?.type ?? formData.type}
               onChange={handleChange}
               required
             />
@@ -213,7 +213,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="companyPractice"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.companyPractice ?? formData.companyPractice}
+              value={editableDoctorUserInfo?.companyPractice ?? formData.companyPractice}
               onChange={handleChange}
               required
             />
@@ -226,7 +226,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="address1"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.address1 ?? formData.address1}
+              value={editableDoctorUserInfo?.address1 ?? formData.address1}
               onChange={handleChange}
               required
             />
@@ -239,7 +239,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="address2"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.address2 ?? formData.address2}
+              value={editableDoctorUserInfo?.address2 ?? formData.address2}
               onChange={handleChange}
               required
             />
@@ -252,7 +252,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="city"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.city ?? formData.city}
+              value={editableDoctorUserInfo?.city ?? formData.city}
               onChange={handleChange}
               required
             />
@@ -265,7 +265,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="state"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.state ?? formData.state}
+              value={editableDoctorUserInfo?.state ?? formData.state}
               onChange={handleChange}
               required
             />
@@ -278,7 +278,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="postCode"
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.postCode ?? formData.postCode}
+              value={editableDoctorUserInfo?.postCode ?? formData.postCode}
               onChange={handleChange}
               required
             />
@@ -291,7 +291,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="country"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.country ?? formData.country}
+              value={editableDoctorUserInfo?.country ?? formData.country}
               onChange={handleChange}
               required
             />
@@ -304,7 +304,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="phone"
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.phone ?? formData.phone}
+              value={editableDoctorUserInfo?.phone ?? formData.phone}
               onChange={handleChange}
               required
             />
@@ -317,7 +317,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="fax"
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.fax ?? formData.fax}
+              value={editableDoctorUserInfo?.fax ?? formData.fax}
               onChange={handleChange}
               required
             />
@@ -331,7 +331,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               type="email"
               required
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.email ?? formData.email}
+              value={editableDoctorUserInfo?.email ?? formData.email}
               onChange={handleChange}
             />
           </div>
@@ -343,7 +343,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="memo"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.memo ?? formData.memo}
+              value={editableDoctorUserInfo?.memo ?? formData.memo}
               onChange={handleChange}
               required
             />
@@ -356,7 +356,7 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
               name="creditCard"
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.creditCard ?? formData.creditCard}
+              value={editableDoctorUserInfo?.creditCard ?? formData.creditCard}
               onChange={handleChange}
               required
             />
@@ -367,8 +367,8 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
             <label className="text-sm text-gray-600 block mb-1">Exp Date</label>
             <DatePicker
               selected={
-                editableUserInfo?.expDate
-                  ? new Date(editableUserInfo.expDate)
+                editableDoctorUserInfo?.expDate
+                  ? new Date(editableDoctorUserInfo.expDate)
                   : formData.expDate
                     ? new Date(formData.expDate)
                     : null
@@ -394,9 +394,9 @@ const CreateDoctor: React.FC<CreateDoctorFormProps> = ({ role, editableUserInfo 
             <label className="text-sm text-gray-600">CVV2</label>
             <input
               name="cvv"
-              type="text"
+              type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
-              value={editableUserInfo?.cvv ?? formData.cvv}
+              value={editableDoctorUserInfo?.cvv ?? formData.cvv}
               onChange={handleChange}
               required
             />
