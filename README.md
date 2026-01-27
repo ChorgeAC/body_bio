@@ -1,4 +1,4 @@
-=====> FUTRAN SOLUTIONS React Js Template Project
+=====> React Js Template Project
 
 # Purpose :-
 
