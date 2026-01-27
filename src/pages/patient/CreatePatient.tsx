@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { editableUserInfo } from '@/pages/UserPortal';
+import type { editablePatientUserInfo } from '@/types/CreateUserForm';
 import DatePicker from 'react-datepicker';
 import { toast } from 'react-toastify';
 
 interface CreatePatientFormProps {
   role?: string;
-  editableUserInfo?: editableUserInfo;
+  editablePatientUserInfo?: editablePatientUserInfo;
 }
 
 interface FormData {
@@ -21,16 +21,16 @@ interface FormData {
   address2: string;
   city: string;
   state: string;
-  postCode: string;
+  postCode: number;
   country: string;
-  phone: string;
-  birthdate: string;
+  phone: number;
+  birthDate: Date | null;
   sex: string;
   bloodType: string;
   information: string;
 }
 
-const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInfo }) => {
+const CreatePatient: React.FC<CreatePatientFormProps> = ({ editablePatientUserInfo }) => {
   const [formData, setFormData] = useState<FormData>({
     patientId: '',
     lastName: '',
@@ -43,10 +43,10 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
     address2: '',
     city: '',
     state: '',
-    postCode: '',
+    postCode: 0,
     country: '',
-    phone: '',
-    birthdate: '',
+    phone: 0,
+    birthDate: null,
     sex: '',
     bloodType: '',
     information: '',
@@ -61,7 +61,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleOnBackClick();
-    toast.success(`User ${editableUserInfo ? 'updated' : 'created'} successfully.`);
+    toast.success(`User ${editablePatientUserInfo ? 'updated' : 'created'} successfully.`);
   };
 
   const handleOnBackClick = () => navigate(-1);
@@ -87,7 +87,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
         </button>
 
         <h2 className="text-2xl font-semibold text-blue-600">
-          {editableUserInfo ? 'Edit' : 'Create'} Patient
+          {editablePatientUserInfo ? 'Edit' : 'Create'} Patient
         </h2>
       </div>
 
@@ -101,7 +101,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.patientId}
-              defaultValue={editableUserInfo?.patientId}
+              defaultValue={editablePatientUserInfo?.patientId}
               onChange={handleChange}
               required
             />
@@ -116,7 +116,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               required
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.lastName}
-              defaultValue={editableUserInfo?.lastName}
+              defaultValue={editablePatientUserInfo?.lastName}
               onChange={handleChange}
             />
           </div>
@@ -130,7 +130,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               required
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.firstName}
-              defaultValue={editableUserInfo?.firstName}
+              defaultValue={editablePatientUserInfo?.firstName}
               onChange={handleChange}
             />
           </div>
@@ -143,7 +143,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.initial}
-              defaultValue={editableUserInfo?.initial}
+              defaultValue={editablePatientUserInfo?.initial}
               onChange={handleChange}
             />
           </div>
@@ -156,7 +156,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.ICD9_ID}
-              defaultValue={editableUserInfo?.ICD9_ID}
+              defaultValue={editablePatientUserInfo?.ICD9_ID}
               onChange={handleChange}
             />
           </div>
@@ -169,7 +169,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.ICD9_SubID}
-              defaultValue={editableUserInfo?.ICD9_SubID}
+              defaultValue={editablePatientUserInfo?.ICD9_SubID}
               onChange={handleChange}
             />
           </div>
@@ -182,7 +182,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.YearDx}
-              defaultValue={editableUserInfo?.YearDx}
+              defaultValue={editablePatientUserInfo?.YearDx}
               onChange={handleChange}
             />
           </div>
@@ -195,7 +195,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.address1}
-              defaultValue={editableUserInfo?.address1}
+              defaultValue={editablePatientUserInfo?.address1}
               onChange={handleChange}
               required
             />
@@ -209,7 +209,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.address2}
-              defaultValue={editableUserInfo?.address2}
+              defaultValue={editablePatientUserInfo?.address2}
               onChange={handleChange}
               required
             />
@@ -223,7 +223,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.city}
-              defaultValue={editableUserInfo?.city}
+              defaultValue={editablePatientUserInfo?.city}
               onChange={handleChange}
               required
             />
@@ -237,7 +237,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.state}
-              defaultValue={editableUserInfo?.state}
+              defaultValue={editablePatientUserInfo?.state}
               onChange={handleChange}
               required
             />
@@ -251,7 +251,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.postCode}
-              defaultValue={editableUserInfo?.postCode}
+              defaultValue={editablePatientUserInfo?.postCode}
               onChange={handleChange}
               required
             />
@@ -265,7 +265,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="text"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.country}
-              defaultValue={editableUserInfo?.country}
+              defaultValue={editablePatientUserInfo?.country}
               onChange={handleChange}
               required
             />
@@ -279,19 +279,19 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               type="number"
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.phone}
-              defaultValue={editableUserInfo?.phone}
+              defaultValue={editablePatientUserInfo?.phone}
               onChange={handleChange}
               required
             />
           </div>
 
-          {/* Birth Day */}
+          {/* Birth Date */}
           <div className="cursor-pointer">
             <label className="text-sm text-gray-600">BirthDay</label>
             <div>
               <DatePicker
                 selected={formData.birthDate}
-                onChange={(date: any) => setFormData({ ...formData, birthDate: date })}
+                onChange={(date: Date | null) => setFormData({ ...formData, birthDate: date })}
                 dateFormat="MM-dd-yyyy"
                 placeholderText="MM-DD-YYYY"
                 className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
@@ -308,7 +308,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
             <label className="text-sm text-gray-600">Gender</label>
             <select
               value={formData.sex}
-              defaultValue={editableUserInfo?.sex}
+              defaultValue={editablePatientUserInfo?.sex}
               onChange={(e) =>
                 setFormData({
                   ...formData,
@@ -332,7 +332,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
             <label className="text-sm text-gray-600">Blood Type</label>
             <select
               value={formData.bloodType}
-              defaultValue={editableUserInfo?.bloodType}
+              defaultValue={editablePatientUserInfo?.bloodType}
               onChange={(e) =>
                 setFormData({
                   ...formData,
@@ -373,7 +373,7 @@ const CreatePatient: React.FC<CreatePatientFormProps> = ({ role, editableUserInf
               className="cursor-pointer w-full mt-1 p-3 bg-gray-50 rounded-md focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
               value={formData.information}
               onChange={handleChange}
-              defaultValue={editableUserInfo?.information}
+              defaultValue={editablePatientUserInfo?.information}
             />
           </div>
         </div>
