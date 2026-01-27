@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DashboardService } from '../../services';
+import { userTypeKey } from '@/constants';
 
 const DASHBOARD_CARDS = [
   { key: 'totalPhysicians', title: 'Total Physicians', color: 'bg-blue-50' },
@@ -26,15 +27,13 @@ const AdminPortal = () => {
   });
 
   const handleCreateUser = (role: string) => {
-    if (role === 'bio-cell-user') {
-      return navigate(`/admin-portal/create-user`);
-    } else {
-      navigate(`/admin-portal/create-user/${role}`);
-    }
+    navigate(`/admin-portal/create-${role}`);
   };
 
   const handleOnClickPendingReports = (title: string) => {
-    if (title === 'Pending Reports') navigate(`/admin-portal/pending-reports`);
+    if (title === 'Pending Reports') {
+      navigate('/admin-portal/pending-reports');
+    }
   };
 
   useEffect(() => {
@@ -74,27 +73,27 @@ const AdminPortal = () => {
 
       <div className="grid grid-cols-5 gap-4 mb-12">
         <button
-          onClick={() => handleCreateUser('doctor')}
+          onClick={() => handleCreateUser(userTypeKey.DOCTOR)}
           className="p-4 rounded-lg bg-blue-100 text-blue-700 shadow-sm hover:scale-[1.02] transition cursor-pointer"
         >
           Create New Physician
         </button>
 
         <button
-          onClick={() => handleCreateUser('bio-cell-user')}
+          onClick={() => handleCreateUser(userTypeKey.USER)}
           className="p-4 rounded-lg bg-green-100 text-green-700 shadow-sm hover:scale-[1.02] transition cursor-pointer"
         >
           Create New Bio Cell User
         </button>
 
         <button
-          onClick={() => handleCreateUser('bio-cell-admin')}
+          onClick={() => handleCreateUser(userTypeKey.ADMIN)}
           className="p-4 rounded-lg bg-purple-100 text-purple-700 shadow-sm hover:scale-[1.02] transition cursor-pointer"
         >
           Create New Admin
         </button>
         <button
-          onClick={() => handleCreateUser('patient')}
+          onClick={() => handleCreateUser(userTypeKey.PATIENT)}
           className="p-4 rounded-lg bg-orange-50 text-gray-700 shadow-sm hover:scale-[1.02] transition cursor-pointer"
         >
           Create New Patient
