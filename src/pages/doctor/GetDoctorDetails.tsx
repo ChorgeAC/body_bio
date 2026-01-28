@@ -1,10 +1,11 @@
 import CommonTable from '@/components/CommonTable';
 import { patientsList } from '../../tests/mockData/SampleDataRecords.json';
-import { editableUserInfo, Patient } from '../UserPortal';
+import type { editableUserInfo, Patient } from '../UserPortal';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CreateVisitForm from '@/components/CreateVisitForm';
 import { PatientService } from '@/services';
+import { userTypeKey } from '@/constants';
 
 const GetDoctorDetails = () => {
   const navigate = useNavigate();
@@ -15,24 +16,26 @@ const GetDoctorDetails = () => {
     name: '',
     status: 'active',
   });
-  const openCreateVisitDrawer = (userInfo: editableUserInfo) => {
+  const openCreateVisitDrawer = (userInfo: editableUserInfo): void => {
     setShowCreateVisitDrawer(true);
     setSelectedPatient(userInfo);
   };
 
-  const closeCreateVisitDrawer = () => {
-    console.log('foo');
+  const closeCreateVisitDrawer = (): void => {
     setShowCreateVisitDrawer(false);
   };
-  const handleEditUser = (userInfo: editableUserInfo, role: string) =>
-    navigate(`/admin-portal/edit-user/${role}`);
+  const handleEditUser = (role: string): void => {
+    navigate(`/admin-portal/create-${role}`);
+  };
 
   useEffect(() => {
     const fetchPatientList = async () => {
       try {
         const data = await PatientService.getPatientList({ patientId: 0 });
         setPatientListData(data);
-      } catch (error) {}
+      } catch (error) {
+        console.error('Failed to fetch patient list:', error);
+      }
     };
     fetchPatientList();
   }, []);
@@ -61,13 +64,11 @@ const GetDoctorDetails = () => {
               { key: 'status', label: 'Status' },
             ]}
             data={patientListData}
-            onEdit={(userInfo) => handleEditUser(userInfo, 'patient')}
+            onEdit={() => handleEditUser(userTypeKey.PATIENT)}
             onCreateVisit={(userInfo) => openCreateVisitDrawer(userInfo)}
-            // onSelect={(userInfo) =>
-            //   navigate(
-            //     `/admin-portal/doctors/${selectedDoctor?.id}/patient/${userInfo.id}/visit-info`
-            //   )
-            // }
+            onSelect={(userInfo) => {
+              navigate(`patient/${userInfo.id}/visit-info`);
+            }}
           />
         </div>
       </div>

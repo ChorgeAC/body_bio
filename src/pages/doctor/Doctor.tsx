@@ -1,14 +1,17 @@
 import CommonTable from '@/components/CommonTable';
 import { doctorsList } from '../../tests/mockData/SampleDataRecords.json';
 import { useNavigate } from 'react-router-dom';
-import { editableUserInfo } from '../UserPortal';
 import { useEffect, useState } from 'react';
-import { Doctor as DoctorProps, DoctorService } from '@/services/doctor.service';
+import type { Doctor as DoctorProps } from '@/services/doctor.service';
+import { DoctorService } from '@/services/doctor.service';
+import { userTypeKey } from '@/constants';
 
 const Doctor = () => {
   const navigate = useNavigate();
-  const handleEditUser = (userInfo: editableUserInfo, role: string) =>
-    navigate(`/admin-portal/edit-user/${role}`);
+  const handleEditUser = (role: string) => {
+    navigate(`/admin-portal/create-${role}`);
+  };
+
   const [doctorListData, setDoctorListData] = useState<DoctorProps[]>(doctorsList);
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const Doctor = () => {
           { key: 'status', label: 'Status' },
         ]}
         data={doctorListData}
-        onEdit={(userInfo) => handleEditUser(userInfo, 'doctor')}
+        onEdit={() => handleEditUser(userTypeKey.DOCTOR)}
         // onDelete={(userInfo) => alert(`Delete ${userInfo.name}`)}
         onSelect={(userInfo) => navigate(`/admin-portal/doctors/${userInfo.id}`)}
       />
