@@ -1,11 +1,11 @@
 import CommonTable from '@/components/CommonTable';
 import { patientsList } from '../../tests/mockData/SampleDataRecords.json';
-import type { editableUserInfo, Patient } from '../UserPortal';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CreateVisitForm from '@/components/CreateVisitForm';
 import { PatientService } from '@/services';
 import { userTypeKey } from '@/constants';
+import type { PatientUserInfo } from '@/types/userInfo';
 
 const GetDoctorDetails = () => {
   const navigate = useNavigate();
@@ -14,14 +14,14 @@ const GetDoctorDetails = () => {
   const portalMatch = location.pathname.match(/\/(\w+-portal)/);
   const basePath = portalMatch ? `/${portalMatch[1]}` : '/doctor-portal';
   
-  const [patientListData, setPatientListData] = useState<Patient[]>(patientsList);
+  const [patientListData, setPatientListData] = useState<PatientUserInfo[]>(patientsList);
   const [showCreateVisitDrawer, setShowCreateVisitDrawer] = useState(false);
-  const [selectedPatient, setSelectedPatient] = useState<Patient>({
+  const [selectedPatient, setSelectedPatient] = useState<PatientUserInfo>({
     id: 1,
     name: '',
     status: 'active',
   });
-  const openCreateVisitDrawer = (userInfo: editableUserInfo): void => {
+  const openCreateVisitDrawer = (userInfo: PatientUserInfo): void => {
     setShowCreateVisitDrawer(true);
     setSelectedPatient(userInfo);
   };
@@ -30,7 +30,7 @@ const GetDoctorDetails = () => {
     setShowCreateVisitDrawer(false);
   };
   const handleEditUser = (id: number, role: string): void => {
-    navigate(`/admin-portal/edit-${role}/${id}`);
+    navigate(`${basePath}/edit-${role}/${id}`);
   };
 
   useEffect(() => {

@@ -1,11 +1,5 @@
 // src/config/sidebarMenu.ts
-import {
-  LayoutDashboard,
-  Users,
-  Stethoscope,
-  FileText,
-  User,
-} from 'lucide-react';
+import { LayoutDashboard, Users, Stethoscope } from 'lucide-react';
 
 export const sidebarMenu = {
   Admin: [
@@ -51,14 +45,9 @@ export const sidebarMenu = {
       icon: LayoutDashboard,
     },
     {
-      label: 'My Reports',
-      path: '/user-portal/reports',
-      icon: FileText,
-    },
-    {
-      label: 'Profile',
-      path: '/user-portal/profile',
-      icon: User,
-    },
+      label: 'Physicians',
+      path: '/user-portal/doctors',
+      icon: Stethoscope,
+    }
   ],
 };
