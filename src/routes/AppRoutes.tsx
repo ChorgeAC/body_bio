@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from '../pages/LoginPage';
 import AdminPortal from '../pages/admin/AdminPortal';
-import DoctorPortal from '../pages/DoctorPortal';
 import UserPortal from '../pages/UserPortal';
 import { ForgotUpdatePassword } from '../pages/ForgotUpdatePassword ';
 import ReportPreview from '../pages/ReportPreview';
@@ -19,6 +18,7 @@ import CreateDoctor from '@/pages/doctor/CreateDoctor';
 import CreateAdmin from '@/pages/admin/CreateAdmin';
 import CreatePatient from '@/pages/patient/CreatePatient';
 import PatientVisitDetailsView from '@/components/PatientVisitDetailsView';
+import DoctorPortal from '@/pages/doctor/DoctorPortal';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -41,17 +41,17 @@ const AppRoutes: React.FC = () => {
         <Route path="admin-users" element={<AdminUser />} />
         <Route path="users" element={<BioUser />} />
         <Route path="doctors" element={<Doctor />} />
-        <Route path="doctors/:id" element={<GetDoctorDetails />} />
+        <Route path="doctor/:id" element={<GetDoctorDetails />} />
         <Route path="create-new-template" element={<CreateNewTemplate />} />
         <Route path="pending-reports" element={<PendingReportsTable />} />
         <Route path="pending-reports/preview/:visitId" element={<ReportPreview />} />
-        <Route path="doctors/:id/patient/:id/visit-info" element={<PatientVisitDetailsView />} />
-         {/* Create New User Routes */}
+        <Route path="doctor/:id/patient/:id/visit-info" element={<PatientVisitDetailsView />} />
+        {/* Create New User Routes */}
         <Route path="create-user" element={<CreateBioUser />} />
         <Route path="create-doctor" element={<CreateDoctor />} />
         <Route path="create-admin" element={<CreateAdmin />} />
         <Route path="create-patient" element={<CreatePatient />} />
-         {/* Edit Existing User Routes */}
+        {/* Edit Existing User Routes */}
         <Route path="edit-user/:id" element={<CreateBioUser />} />
         <Route path="edit-doctor/:id" element={<CreateDoctor />} />
         <Route path="edit-admin/:id" element={<CreateAdmin />} />
@@ -62,14 +62,15 @@ const AppRoutes: React.FC = () => {
       <Route
         path="/doctor-portal"
         element={
-          <ProtectedRoute allowedRoles={['Doctor', 'Admin']}>
+          <ProtectedRoute allowedRoles={['Doctor']}>
             <AppLayout />
           </ProtectedRoute>
         }
       >
         <Route index element={<DoctorPortal />} />
-        {/* <Route path="patients" element={<DoctorPatients />} />
-        <Route path="reports" element={<DoctorReports />} /> */}
+        <Route path="pending-reports" element={<PendingReportsTable />} />
+        <Route path="doctor/:id/patients" element={<GetDoctorDetails />} />
+        <Route path="doctor/:id/patient/:id/visit-info" element={<PatientVisitDetailsView />} />
       </Route>
 
       {/* USER */}

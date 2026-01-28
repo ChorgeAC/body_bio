@@ -1,15 +1,15 @@
 // src/components/Sidebar/Sidebar.tsx
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
+import type { RootState } from '@/redux/store';
 import { sidebarMenu } from '@/config/sidebarMenu';
 
 const Sidebar = () => {
   const role = useSelector((state: RootState) => state.auth.role);
-
-  if (!role) return null;
+  if (!role) {return null;}
 
   const menuItems = sidebarMenu[role as keyof typeof sidebarMenu];
+  const selectedDoctor = { id: 1 };
 
   return (
     <aside className="w-64 bg-white shadow-md h-full">
@@ -19,8 +19,8 @@ const Sidebar = () => {
 
           return (
             <NavLink
-              key={item.path}
-              to={item.path}
+              key={item.path instanceof Function ? item.path(String(selectedDoctor.id)) : item.path}
+              to={item.path instanceof Function ? item.path(String(selectedDoctor.id)) : item.path}
               end
               className={({ isActive }) =>
                 `flex items-center gap-3 p-2 rounded-md transition ${

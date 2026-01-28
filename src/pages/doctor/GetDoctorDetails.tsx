@@ -1,7 +1,7 @@
 import CommonTable from '@/components/CommonTable';
 import { patientsList } from '../../tests/mockData/SampleDataRecords.json';
 import type { editableUserInfo, Patient } from '../UserPortal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CreateVisitForm from '@/components/CreateVisitForm';
 import { PatientService } from '@/services';
@@ -9,6 +9,11 @@ import { userTypeKey } from '@/constants';
 
 const GetDoctorDetails = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { id: doctorId } = useParams<{ id: string }>();
+  const portalMatch = location.pathname.match(/\/(\w+-portal)/);
+  const basePath = portalMatch ? `/${portalMatch[1]}` : '/doctor-portal';
+  
   const [patientListData, setPatientListData] = useState<Patient[]>(patientsList);
   const [showCreateVisitDrawer, setShowCreateVisitDrawer] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<Patient>({
@@ -67,7 +72,7 @@ const GetDoctorDetails = () => {
             onEdit={(userInfo) => handleEditUser(userInfo.id, userTypeKey.PATIENT)}
             onCreateVisit={(userInfo) => openCreateVisitDrawer(userInfo)}
             onSelect={(userInfo) => {
-              navigate(`patient/${userInfo.id}/visit-info`);
+              navigate(`${basePath}/doctor/${doctorId}/patient/${userInfo.id}/visit-info`);
             }}
           />
         </div>
