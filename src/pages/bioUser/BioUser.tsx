@@ -5,8 +5,9 @@ import { userTypeKey } from '@/constants';
 
 const BioUser = () => {
   const navigate = useNavigate();
-  const handleEditUser = (role: string) =>
-    navigate(`/admin-portal/create-${role}`);
+  const handleEditUser = (id: number, role: string) => {
+    navigate(`/admin-portal/edit-${role}/${id}`);
+  };
   return (
     <div>
       <CommonTable
@@ -17,7 +18,7 @@ const BioUser = () => {
           { key: 'status', label: 'Status' },
         ]}
         data={bioUsersList}
-        onEdit={() => handleEditUser(userTypeKey.USER)}
+        onEdit={(userInfo) => handleEditUser(userInfo.id, userTypeKey.USER)}
         // onDelete={(row) => alert(`Delete ${row.name}`)}
       />
     </div>

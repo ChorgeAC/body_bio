@@ -24,8 +24,8 @@ const GetDoctorDetails = () => {
   const closeCreateVisitDrawer = (): void => {
     setShowCreateVisitDrawer(false);
   };
-  const handleEditUser = (role: string): void => {
-    navigate(`/admin-portal/create-${role}`);
+  const handleEditUser = (id: number, role: string): void => {
+    navigate(`/admin-portal/edit-${role}/${id}`);
   };
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const GetDoctorDetails = () => {
               { key: 'status', label: 'Status' },
             ]}
             data={patientListData}
-            onEdit={() => handleEditUser(userTypeKey.PATIENT)}
+            onEdit={(userInfo) => handleEditUser(userInfo.id, userTypeKey.PATIENT)}
             onCreateVisit={(userInfo) => openCreateVisitDrawer(userInfo)}
             onSelect={(userInfo) => {
               navigate(`patient/${userInfo.id}/visit-info`);
