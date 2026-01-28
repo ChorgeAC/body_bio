@@ -48,7 +48,7 @@ const DoctorPortal = () => {
 
   const renderSection = () => {
     if (showPatientVisitDetailList) {
-      return <PatientVisitDetailsView onBack={() => navigate(`/doctor-portal/patients`)} />;
+      return <PatientVisitDetailsView />;
     }
 
     switch (active) {

@@ -203,9 +203,7 @@ const UserPortal = () => {
 
     if (showPatientVisitDetailList) {
       return (
-        <PatientVisitDetailsView
-          onBack={() => navigate(`/user-portal/doctors/${selectedDoctor?.id}/patients`)}
-        />
+        <PatientVisitDetailsView/>
       );
     }
 

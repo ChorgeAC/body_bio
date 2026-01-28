@@ -1,9 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { doctorsList, patientsList } from '../tests/mockData/SampleDataRecords.json';
-interface PatientVisitDetailsViewProps {
-  onBack: () => void;
-}
 
-const PatientVisitDetailsView = ({ onBack }: PatientVisitDetailsViewProps) => {
+const PatientVisitDetailsView = () => {
+  const navigate = useNavigate();
+
   const visits = [
     {
       id: 1,
@@ -69,7 +69,7 @@ const PatientVisitDetailsView = ({ onBack }: PatientVisitDetailsViewProps) => {
     <div className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-4 min-h-full">
       {/* Back Button */}
       <button
-        onClick={() => onBack()}
+        onClick={() => navigate(-1)}
         className="flex items-center gap-2 text-blue-600 font-medium
           hover:text-blue-700 transition cursor-pointer select-none"
       >

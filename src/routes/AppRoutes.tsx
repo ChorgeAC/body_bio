@@ -18,6 +18,7 @@ import GetDoctorDetails from '@/pages/doctor/GetDoctorDetails';
 import CreateDoctor from '@/pages/doctor/CreateDoctor';
 import CreateAdmin from '@/pages/admin/CreateAdmin';
 import CreatePatient from '@/pages/patient/CreatePatient';
+import PatientVisitDetailsView from '@/components/PatientVisitDetailsView';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -44,6 +45,7 @@ const AppRoutes: React.FC = () => {
         <Route path="create-new-template" element={<CreateNewTemplate />} />
         <Route path="pending-reports" element={<PendingReportsTable />} />
         <Route path="pending-reports/preview/:visitId" element={<ReportPreview />} />
+        <Route path="doctors/:id/patient/:id/visit-info" element={<PatientVisitDetailsView />} />
          {/* Create New User Routes */}
         <Route path="create-user" element={<CreateBioUser />} />
         <Route path="create-doctor" element={<CreateDoctor />} />

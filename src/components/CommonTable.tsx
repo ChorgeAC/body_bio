@@ -237,7 +237,7 @@ const CommonTable = <T extends TableRow>({
                           {onCreateVisit && (
                             <button
                               onClick={() => onCreateVisit(row)}
-                              className="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition whitespace-nowrap"
+                              className="cursor-pointer px-3 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition whitespace-nowrap"
                             >
                               + Create Visit
                             </button>
@@ -245,7 +245,7 @@ const CommonTable = <T extends TableRow>({
                           {onEdit && (
                             <button
                               onClick={() => onEdit(row)}
-                              className="text-blue-600 hover:underline whitespace-nowrap"
+                              className="text-blue-600 hover:underline whitespace-nowrap cursor-pointer"
                             >
                               Edit
                             </button>

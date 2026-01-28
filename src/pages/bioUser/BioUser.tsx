@@ -1,12 +1,12 @@
 import CommonTable from '@/components/CommonTable';
 import { bioUsersList } from '../../tests/mockData/SampleDataRecords.json';
-import { editableUserInfo } from '../UserPortal';
 import { useNavigate } from 'react-router-dom';
+import { userTypeKey } from '@/constants';
 
 const BioUser = () => {
   const navigate = useNavigate();
-  const handleEditUser = (userInfo: editableUserInfo, role: string) =>
-    navigate(`/admin-portal/edit-user/${role}`);
+  const handleEditUser = (role: string) =>
+    navigate(`/admin-portal/create-${role}`);
   return (
     <div>
       <CommonTable
@@ -17,7 +17,7 @@ const BioUser = () => {
           { key: 'status', label: 'Status' },
         ]}
         data={bioUsersList}
-        onEdit={(userInfo) => handleEditUser(userInfo, 'bio-users')}
+        onEdit={() => handleEditUser(userTypeKey.USER)}
         // onDelete={(row) => alert(`Delete ${row.name}`)}
       />
     </div>
