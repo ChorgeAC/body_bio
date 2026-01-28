@@ -309,7 +309,7 @@ const UserPortal = () => {
                 onCreateVisit={openCreateVisitDrawer}
                 onSelect={(userInfo) =>
                   navigate(
-                    `/user-portal/doctors/${selectedDoctor?.id}/patient/${userInfo.id}/visit-info`
+                    `/user-portal/doctor/${selectedDoctor?.id}/patient/${userInfo.id}/visit-info`
                   )
                 }
               />
@@ -333,7 +333,7 @@ const UserPortal = () => {
             data={doctorsList}
             onSelect={(row: Doctor) => {
               setSelectedDoctor(row);
-              navigate(`/user-portal/doctors/${row.id}/patients`);
+              navigate(`/user-portal/doctor/${row.id}/patients`);
             }}
             onEdit={(userInfo) => handleEditUser(userInfo, 'doctor')}
             onDelete={(row: Doctor) => alert(`Delete ${row.name}`)}

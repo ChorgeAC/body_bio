@@ -39,13 +39,8 @@ export const sidebarMenu = {
     },
     {
       label: 'Patients',
-      path: '/doctor-portal/patients',
+      path: (id: string): string => `/doctor-portal/doctor/${id}/patients`,
       icon: Stethoscope,
-    },
-    {
-      label: 'Reports',
-      path: '/doctor-portal/reports',
-      icon: FileText,
     },
   ],
 

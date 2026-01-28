@@ -40,7 +40,7 @@ const Doctor = () => {
         data={doctorListData}
         onEdit={(userInfo) => handleEditUser(userInfo.id ,userTypeKey.DOCTOR)}
         // onDelete={(userInfo) => alert(`Delete ${userInfo.name}`)}
-        onSelect={(userInfo) => navigate(`/admin-portal/doctors/${userInfo.id}`)}
+        onSelect={(userInfo) => navigate(`/admin-portal/doctor/${userInfo.id}`)}
       />
     </div>
   );
