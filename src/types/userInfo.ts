@@ -1,4 +1,4 @@
-export type editableAdminUserInfo = {
+export type AdminUserInfo = {
   fullName: string;
   address1: string;
   address2: string;
@@ -11,7 +11,7 @@ export type editableAdminUserInfo = {
   email: string;
 };
 
-export type editableBioUserInfo = {
+export type BioUserInfo = {
   name: string;
   email: string;
   address1: string;
@@ -23,7 +23,7 @@ export type editableBioUserInfo = {
   phoneNumber: number;
 };
 
-export type editablePatientUserInfo = {
+export type PatientUserInfo = {
 patientId: string;
 lastName: string;
 firstName: string;
@@ -44,7 +44,7 @@ bloodType: string;
 information: string;
 };
 
-export type editableDoctorUserInfo = {
+export type DoctorUserInfo = {
 clientAcct: number;
 creditHold: string;
 eLyte: string;
