@@ -8,8 +8,8 @@ import { userTypeKey } from '@/constants';
 
 const Doctor = () => {
   const navigate = useNavigate();
-  const handleEditUser = (role: string) => {
-    navigate(`/admin-portal/create-${role}`);
+  const handleEditUser = (id: number, role: string) => {
+    navigate(`/admin-portal/edit-${role}/${id}`);
   };
 
   const [doctorListData, setDoctorListData] = useState<DoctorProps[]>(doctorsList);
@@ -38,7 +38,7 @@ const Doctor = () => {
           { key: 'status', label: 'Status' },
         ]}
         data={doctorListData}
-        onEdit={() => handleEditUser(userTypeKey.DOCTOR)}
+        onEdit={(userInfo) => handleEditUser(userInfo.id ,userTypeKey.DOCTOR)}
         // onDelete={(userInfo) => alert(`Delete ${userInfo.name}`)}
         onSelect={(userInfo) => navigate(`/admin-portal/doctors/${userInfo.id}`)}
       />

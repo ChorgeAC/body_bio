@@ -5,8 +5,8 @@ import { userTypeKey } from '@/constants';
 
 const AdminUser = () => {
   const navigate = useNavigate();
-  const handleEditUser = (role: string): void => {
-    navigate(`/admin-portal/create-${role}`);
+  const handleEditUser = (id: number, role: string) => {
+    navigate(`/admin-portal/edit-${role}/${id}`);
   };
 
   return (
@@ -19,7 +19,7 @@ const AdminUser = () => {
           { key: 'status', label: 'Status' },
         ]}
         data={adminsList}
-        onEdit={() => handleEditUser(userTypeKey.ADMIN)}
+        onEdit={(userInfo) => handleEditUser(userInfo.id, userTypeKey.ADMIN)}
         // onDelete={(userInfo) => alert(`Delete ${userInfo.name}`)}
       />
     </div>
